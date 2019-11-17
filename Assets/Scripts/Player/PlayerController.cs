@@ -4,39 +4,57 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Vector3 screenPoint;
-    private Vector3 offset;
+   
     private bool canMove=false;
 
     private Rigidbody rb;
-    public float speed;
+    public float horizontalMoveSpeed =5f;
+    public float forwardMoveSpeed = 10f;
 
-    private void OnMouseDown()
+
+    private float maxClampRight;
+    private float minClampLeft;
+
+    private void Awake()
     {
-        screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-
-        offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, screenPoint.y, screenPoint.z));
-        canMove = true;
-    }
-    private void OnMouseDrag()
-    {
-        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, screenPoint.y, screenPoint.z);
-
-        Vector3 curPoint = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-        transform.position = curPoint;
+        rb = GetComponent<Rigidbody>();
     }
 
-    private void OnMouseUp()
+    private void Start()
     {
-        canMove = false;
+        EventSystem.Instance.RegisterEvent<InputValues>(OnInputReceived);
+       
+        float currentPosX = transform.position.z;
+        maxClampRight = currentPosX + 1.1f;
+        minClampLeft = currentPosX - 0.8f;
+       
     }
-
-    private void Update()
+    private void FixedUpdate()
     {
         if (canMove)
         {
-           // player movement code
+            Debug.Log("should move");
+            //rb.AddForce(-transform.right * forwardMoveSpeed * rb.mass*Time.deltaTime);
+            rb.velocity = -transform.right * forwardMoveSpeed * Time.deltaTime;
         }
     }
+
+
+    void OnInputReceived(InputValues values)
+    {
+        canMove = true;
+        if (values.isSwiping)
+        {
+            
+            Vector3 newMovePos = transform.position;
+            newMovePos.z += values.swipeX * horizontalMoveSpeed * Time.fixedDeltaTime;
+            newMovePos.z = Mathf.Clamp(newMovePos.z, minClampLeft, maxClampRight);
+            transform.position = newMovePos;
+
+        }
+       
+    }
+
+    
 
 }

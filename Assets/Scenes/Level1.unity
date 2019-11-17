@@ -1923,6 +1923,8 @@ GameObject:
   m_Component:
   - component: {fileID: 613091676}
   - component: {fileID: 613091675}
+  - component: {fileID: 613091678}
+  - component: {fileID: 613091677}
   m_Layer: 0
   m_Name: LevelGenerator
   m_TagString: Untagged
@@ -1970,6 +1972,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &613091677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613091674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902efc59c1e91984e84bae5ec9bf4a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &613091678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613091674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78eab2e896555334c85dcbd088e17afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxScreenTouchTime: 0.3
 --- !u!1 &614759696
 GameObject:
   m_ObjectHideFlags: 0
@@ -3474,7 +3501,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &963194226
 AudioListener:
   m_ObjectHideFlags: 0
@@ -4844,7 +4871,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -3.3999634, y: -5.199951}
+  m_AnchoredPosition: {x: -3.3999023, y: -5.199951}
   m_SizeDelta: {x: 169.44, y: 33.33}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1258692603
@@ -5291,8 +5318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2150b41900449554c9f9774c028806a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceFromTarget: 6
-  offset: {x: 0, y: 0, z: 0}
+  distanceFromTarget: 0
+  offset: {x: 4.56, y: 2.41, z: 0.08}
 --- !u!81 &1340585497
 AudioListener:
   m_ObjectHideFlags: 0
@@ -5351,13 +5378,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340585495}
-  m_LocalRotation: {x: 0.014073214, y: 0.77957207, z: 0.017553467, w: -0.62590843}
+  m_LocalRotation: {x: 0.029067991, y: -0.7065091, z: 0.029043386, w: 0.70651007}
   m_LocalPosition: {x: -94.98, y: 2.0760822, z: -27.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 25
-  m_LocalEulerAnglesHint: {x: 29.996002, y: -84.395004, z: -0.633}
+  m_LocalEulerAnglesHint: {x: 4.71, y: -90, z: -0.002}
 --- !u!1001 &1421537805
 PrefabInstance:
   m_ObjectHideFlags: 0
