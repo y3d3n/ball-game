@@ -10,6 +10,8 @@ public class CameraBehaviour : MonoBehaviour
 
     public Vector3 offset = new Vector3(2,0,4);
     Vector3 playerLastPosition;
+
+    Vector3 cameraInitialPos;
     private void Awake()
     {
         _camera = this;
@@ -18,15 +20,14 @@ public class CameraBehaviour : MonoBehaviour
     public void SetNewTarget(GameObject newTarget)
     {
         target = newTarget.transform;
+        cameraInitialPos = target.transform.position;
     }
     private void LateUpdate()
     {
         if (target != null)
         {
-            playerLastPosition = target.position;
-            playerLastPosition.x = playerLastPosition.x + distanceFromTarget;
-            playerLastPosition.y = target.position.y + distanceFromTarget / 2;
-
+            cameraInitialPos.x = target.transform.position.x;
+            playerLastPosition = cameraInitialPos + offset;
             transform.position = playerLastPosition;
         }
     }
