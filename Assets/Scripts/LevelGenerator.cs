@@ -65,21 +65,6 @@ public class LevelGenerator : MonoBehaviour
                 NextLevel();
             }
         }
-
-        for(int i=0; i<Input.touchCount; ++i)
-        {
-            if(Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                if (stage < totalStage + 1)
-                {
-                    CreateLevel();
-                }
-                else
-                {
-                    NextLevel();
-                }
-            }
-        }
     }
 
     public void CreateLevel()
