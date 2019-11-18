@@ -96,7 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fe1b52a32e73e4e93c5f865b713e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalMoveSpeed: 150
+  ForceFullyStopPlayer: 0
+  horizontalMoveSpeed: 300
   forwardMoveSpeed: 2
 --- !u!54 &7288149451626494290
 Rigidbody:

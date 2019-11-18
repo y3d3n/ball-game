@@ -61,14 +61,6 @@ public class PlayerController : MonoBehaviour
     void OnInputReceived(InputValues values)
     {
         canMove = true;
-
-
-//         Vector3 newMovePos = transform.position;
-//         newMovePos.z += values.swipeX * horizontalMoveSpeed * Time.fixedDeltaTime;
-//         newMovePos.z = Mathf.Clamp(newMovePos.z, minClampLeft, maxClampRight);
-        //transform.position = newMovePos;
-       // rb.MovePosition(newMovePos);
-
         if (values.isSwiping)
         {
             float swipeX = 0;
@@ -80,7 +72,8 @@ public class PlayerController : MonoBehaviour
 
     public void ChangeMoveState()
     {
-        canMove = !canMove;
+       ForceFullyStopPlayer = !ForceFullyStopPlayer;
+        rb.velocity = Vector3.zero;
     }
 
 
