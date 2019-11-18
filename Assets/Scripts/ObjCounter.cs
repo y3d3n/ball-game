@@ -11,7 +11,7 @@ public class ObjCounter : MonoBehaviour
         if(other.CompareTag("ball"))
         {
             collection++;
-            ScoreManager.Instance.CheckCount();
+            //ScoreManager.Instance.CheckCount();
 
             StartCoroutine(waitForDeactive(other.gameObject));
 

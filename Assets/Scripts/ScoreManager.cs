@@ -27,7 +27,7 @@ public class ScoreManager : MonoBehaviour
 
         if (currentStage == stages)
         {
-            if (count < (ItemCount() - RequiredBalls()))
+            if (count < RequiredBalls())
             {
                 UIManager.Instance.GameOver();
             }
@@ -39,9 +39,13 @@ public class ScoreManager : MonoBehaviour
         }
         else
         {
-            if (count < (ItemCount() - RequiredBalls()))
+            if (count < RequiredBalls())
             {
                 UIManager.Instance.GameOver();
+            }
+            else
+            {
+                UIManager.Instance.LevelFinished();
             }
         }        
 
