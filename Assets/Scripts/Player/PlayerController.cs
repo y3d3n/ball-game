@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
    
     private bool canMove=false;
 
+    public bool ForceFullyStopPlayer = false;
+
     private Rigidbody rb;
     public float horizontalMoveSpeed =5f;
     public float forwardMoveSpeed = 10f;
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     Vector3 playerNewVelocity;
 
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,31 +31,31 @@ public class PlayerController : MonoBehaviour
         EventSystem.Instance.RegisterEvent<InputValues>(OnInputReceived);
        
         float currentPosX = transform.position.z;
-        maxClampRight = currentPosX + 1.1f;
-        minClampLeft = currentPosX - 0.8f;
+        maxClampRight = currentPosX + 0.9f;
+        minClampLeft = currentPosX - 0.6f;
         playerNewVelocity = Vector3.zero;
        
     }
+    Vector3 clampedPos;
     private void FixedUpdate()
     {
-        if (canMove)
+        if (canMove && !ForceFullyStopPlayer)
         {
-            Debug.Log("should move");
+
 
             //Deactive UI
             UIManager.Instance.IsPlaying();
 
-            //rb.AddForce(-transform.right * forwardMoveSpeed * rb.mass*Time.deltaTime);
-            playerNewVelocity.x = -forwardMoveSpeed * Time.deltaTime;
-            playerNewVelocity.y = rb.velocity.y;
-            
-
-      
+            rb.MovePosition(transform.position - transform.right * forwardMoveSpeed*Time.deltaTime);
+            playerNewVelocity.x = rb.velocity.x;
             rb.velocity = playerNewVelocity;
-            playerNewVelocity.z = 0;
-          
+           
+
         }
+            playerNewVelocity.z = 0;
+
     }
+
 
 
     void OnInputReceived(InputValues values)
@@ -60,28 +63,26 @@ public class PlayerController : MonoBehaviour
         canMove = true;
 
 
-        // Vector3 newMovePos = transform.position;
-        //  newMovePos.z += values.swipeX * horizontalMoveSpeed * Time.fixedDeltaTime;
-        //  newMovePos.z = Mathf.Clamp(newMovePos.z, minClampLeft, maxClampRight);
-        // transform.position = newMovePos;
+//         Vector3 newMovePos = transform.position;
+//         newMovePos.z += values.swipeX * horizontalMoveSpeed * Time.fixedDeltaTime;
+//         newMovePos.z = Mathf.Clamp(newMovePos.z, minClampLeft, maxClampRight);
+        //transform.position = newMovePos;
+       // rb.MovePosition(newMovePos);
 
         if (values.isSwiping)
         {
             float swipeX = 0;
             swipeX = Mathf.Clamp(values.swipeX, -1f, 1f);
             playerNewVelocity.z = swipeX * horizontalMoveSpeed * Time.fixedDeltaTime;
-     
-
         }
 
-        //   float velocityZ = Mathf.Clamp(playerNewVelocity.z, -horizontal - MoveSpeed, horizontalMoveSpeed);
-        // playerNewVelocity.z = velocityZ;
     }
 
     public void ChangeMoveState()
     {
         canMove = !canMove;
     }
+
 
     
 

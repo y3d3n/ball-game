@@ -1952,7 +1952,7 @@ MonoBehaviour:
   counterEnableTrigger: {fileID: 3964060180253404481, guid: 1329c540e23c9204088536500947a246,
     type: 3}
   player: {fileID: 4863474743333576524, guid: 3cfc0a785c9e1dd428cf800af5b18b2c, type: 3}
-  platformSize: 2
+  platformSize: 6
   spawnPositions:
   - {fileID: 896851753}
   - {fileID: 1917354160}
