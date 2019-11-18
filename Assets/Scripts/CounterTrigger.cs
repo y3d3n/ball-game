@@ -10,6 +10,13 @@ public class CounterTrigger : MonoBehaviour
         {
             other.GetComponent<PlayerController>().ChangeMoveState();
             Debug.Log("FUCK Player is here");
+            StartCoroutine(check());
         }
+    }
+
+    IEnumerator check()
+    {
+        yield return new WaitForSeconds(2f);
+        ScoreManager.Instance.CheckCount();
     }
 }
