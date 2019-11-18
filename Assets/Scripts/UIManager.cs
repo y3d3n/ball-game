@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
     public GameObject startUI, gameOverUI, settingUI, doubleUI, playingUI, noThanksButton;
+
+    public TextMeshProUGUI levelText, diamondText;
 
     public Transform stageParent;
     private List <GameObject> stageItem = new List<GameObject>();
@@ -16,6 +19,11 @@ public class UIManager : MonoBehaviour
     bool isStarted = false;
 
     public Sprite stageComplete, stagePlaying, stageNext;
+
+
+    GameObject levelGenerator;
+    LevelGenerator levelGeneratorCS;
+
     private void Awake()
     {
         Instance = this;
@@ -37,12 +45,12 @@ public class UIManager : MonoBehaviour
         {
             startUI.SetActive(false);
             playingUI.SetActive(true);
-            
+            gameOverUI.SetActive(false);
             isPlaying = false;
         }
         else if (isDead)
         {
-            doubleUI.SetActive(true);
+            gameOverUI.SetActive(true);
             playingUI.SetActive(false);
             StartCoroutine(ActiveText());
             isDead = false;
@@ -52,15 +60,12 @@ public class UIManager : MonoBehaviour
             startUI.SetActive(true);
             doubleUI.SetActive(false);
             playingUI.SetActive(true);
+            gameOverUI.SetActive(false);
             isStarted = false;
         }
     }
-    public void UpdateCount()
-    {
-        
-    }
 
-    public void PlayButton()
+    public void IsPlaying()
     {
         isPlaying = true;
     }
@@ -116,5 +121,21 @@ public class UIManager : MonoBehaviour
     public void LevelCompletedUI()
     {
         doubleUI.SetActive(true);
+    }
+
+    public void UpdateLevelText(int i)
+    {
+        levelText.text = "LEVEL " + i;
+    }
+
+    public void LevelFinished()
+    {
+        levelGenerator = GameObject.Find("LevelGenerator");
+        levelGeneratorCS = levelGenerator.GetComponent<LevelGenerator>();
+
+        levelGeneratorCS.CheckStageUpdate();
+
+        isStarted = true;
+
     }
 }

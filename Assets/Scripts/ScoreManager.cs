@@ -7,35 +7,44 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance;
     public ObjCounter counterCS;
     private int count = 0;
+    public int stages = 1;
+    public int currentStage = 1;
 
     private void Awake()
     {
         Instance = this;
         DontDestroyOnLoad(this.gameObject);
     }
+
     public void CheckCount()
     {
+
+
         count = counterCS.GetCount();
 
         Debug.Log("Fucking Count: " + count);
+        Debug.Log("CS: " + currentStage + " Total Stages: " + stages);
 
-        if(count < (ItemCount() - RequiredBalls()))
+        if (currentStage == stages)
         {
-            UIManager.Instance.GameOver();
+            if (count < (ItemCount() - RequiredBalls()))
+            {
+                UIManager.Instance.GameOver();
+            }
+            else
+            {
+                UIManager.Instance.LevelCompletedUI();
+                Debug.Log("FFFFFF");
+            }
         }
         else
         {
-            UIManager.Instance.LevelCompletedUI();
-        }
+            if (count < (ItemCount() - RequiredBalls()))
+            {
+                UIManager.Instance.GameOver();
+            }
+        }        
 
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            CheckCount();
-        }
     }
 
     private int ItemCount()
@@ -110,5 +119,15 @@ public class ScoreManager : MonoBehaviour
 
         return cr;
 
+    }
+
+    public void SetTotalStages(int s)
+    {
+        stages = s;
+    }
+
+    public void SetCurrentStage(int s)
+    {
+        currentStage = s;
     }
 }

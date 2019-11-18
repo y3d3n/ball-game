@@ -8,6 +8,7 @@ public class CounterTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<PlayerController>().ChangeMoveState();
             Debug.Log("FUCK Player is here");
         }
     }

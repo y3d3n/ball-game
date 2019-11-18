@@ -32,6 +32,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         totalStage = manageStages();
+
     }
 
     public void SaveLevel(int level, int sceneIndex)
@@ -49,35 +50,39 @@ public class LevelGenerator : MonoBehaviour
     {
         StartCoroutine(UIManager.Instance.DeactiveStage(totalStage));
         CreateLevel();
+
+        UIManager.Instance.UpdateLevelText(currentLevel);
     }
 
-    public void Update()
+    public void CheckStageUpdate()
     {
-        
-        if (Input.GetKeyDown(KeyCode.A))
+        if (stage < totalStage+1)
         {
-            if (stage < totalStage+1)
-            {
-                CreateLevel();
-            }
-            else
-            {
-                NextLevel();
-            }
+            CreateLevel();
+        }
+        else
+        {
+            NextLevel();
         }
     }
 
     public void CreateLevel()
     {
         Transform newSpawnPoint = spawnPositions[stage].transform;
-        Generate(newSpawnPoint, 6); //reset size every next level
+        Generate(newSpawnPoint, StageSize()); //reset size every next level 
         if (stage > 1)
         {
             UIManager.Instance.ChangeStageUI(stage);
 
             spawnPositions[stage - 1].gameObject.SetActive(false);
         }
+        
+
+        ScoreManager.Instance.SetTotalStages(totalStage);
+        ScoreManager.Instance.SetCurrentStage(stage);
+
         stage++;
+
     }
 
     //Generate Platforms in a specific position and size.
@@ -123,7 +128,9 @@ public class LevelGenerator : MonoBehaviour
 
         // One Trigger is required at the end of the platform to enable counting the balls in a score manager
         Vector3 counterTriggerPosition = tempPosition;
-        counterTriggerPosition.x = counterTriggerPosition.x + 1.5f;
+        counterTriggerPosition.x = counterTriggerPosition.x - 0.8f;
+
+        counterTriggerPosition.z = counterTriggerPosition.z + 1.5f;
         GameObject counterTrigger = Instantiate(counterEnableTrigger, counterTriggerPosition, Quaternion.identity) as GameObject;
 
         //parrent it to its is spawn point
@@ -156,7 +163,7 @@ public class LevelGenerator : MonoBehaviour
         int i = 1;
         if (currentLevel >= 1 && currentLevel < 5)
         {
-            i = 5;
+            i = Random.Range(2, 3);
         }
         else if(currentLevel >= 5 && currentLevel < 10)
         {
@@ -169,6 +176,29 @@ public class LevelGenerator : MonoBehaviour
         else if(currentLevel >= 20 )
         {
             i = Random.Range(3, 7);
+        }
+
+        return i;
+    }
+
+    private int StageSize()
+    {
+        int i = 1;
+        if (currentLevel >= 1 && currentLevel < 5)
+        {
+            i = Random.Range(2, 3);
+        }
+        else if (currentLevel >= 5 && currentLevel < 10)
+        {
+            i = Random.Range(2, 4);
+        }
+        else if (currentLevel >= 10 && currentLevel < 20)
+        {
+            i = Random.Range(2, 5);
+        }
+        else if (currentLevel >= 40)
+        {
+            i = Random.Range(2, 6);
         }
 
         return i;

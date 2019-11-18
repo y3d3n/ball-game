@@ -38,6 +38,10 @@ public class PlayerController : MonoBehaviour
         if (canMove)
         {
             Debug.Log("should move");
+
+            //Deactive UI
+            UIManager.Instance.IsPlaying();
+
             //rb.AddForce(-transform.right * forwardMoveSpeed * rb.mass*Time.deltaTime);
             playerNewVelocity.x = -forwardMoveSpeed * Time.deltaTime;
             playerNewVelocity.y = rb.velocity.y;
@@ -72,14 +76,11 @@ public class PlayerController : MonoBehaviour
 
         //   float velocityZ = Mathf.Clamp(playerNewVelocity.z, -horizontal - MoveSpeed, horizontalMoveSpeed);
         // playerNewVelocity.z = velocityZ;
-       
-        
+    }
 
-        
-
-
-
-
+    public void ChangeMoveState()
+    {
+        canMove = !canMove;
     }
 
     

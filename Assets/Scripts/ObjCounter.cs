@@ -11,12 +11,22 @@ public class ObjCounter : MonoBehaviour
         if(other.CompareTag("ball"))
         {
             collection++;
-            Destroy(other.gameObject);
+            ScoreManager.Instance.CheckCount();
+
+            StartCoroutine(waitForDeactive(other.gameObject));
+
+            //Destroy(other.gameObject);
         }
     }
 
     public int GetCount()
     {
         return collection;
+    }
+    
+    IEnumerator waitForDeactive( GameObject other)
+    {
+        yield return new WaitForSeconds(1.0f);
+        Destroy(other.gameObject);
     }
 }
